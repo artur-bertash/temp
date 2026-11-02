@@ -24,7 +24,7 @@ jobs:
               run: echo "hello world!"
 
     demo:
-        needs: build
+
         runs-on: ubuntu-latest
         steps:
           - run: echo "::warning file=README.md,line=1,title=Heads up::This file needs attention"
