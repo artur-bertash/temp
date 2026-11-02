@@ -1,0 +1,13 @@
+{
+  "yaml.completion": true,
+  "yaml.validate": false,
+  "[github-actions-workflow]": {
+    "editor.quickSuggestions": {
+      "comments": true,
+      "strings": true,
+      "other": true
+    },
+    "editor.quickSuggestionsDelay": 0,
+    "editor.suggestOnTriggerCharacters": true
+  }
+}
