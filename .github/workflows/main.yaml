@@ -1,32 +1,31 @@
-name: ""
+name: annotation-demo
 
 on:
-    push: 
-        branches:
-            - main
+  push:
+    branches: [main]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                python-version: '3.11'
-            - id: version 
-              run: echo "1.0.0" >> "$GITHUB_OUTPUT"
-            - name: Install dependencies
-              run: |
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt
-            - name: Saying hello world!
-              run: echo "hello world!"
+  annotations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Emit annotations
+        run: |
+          echo "::notice title=FYI::Build started"
+          echo "::warning title=Heads up::Something looks off"
+          echo "::error title=Problem::Something is broken"
 
-    demo:
+      - name: Collapsible group and masking
+        run: |
+          echo "::group::Click me to expand"
+          echo "Hidden line 1"
+          echo "Hidden line 2"
+          echo "::endgroup::"
 
-        runs-on: ubuntu-latest
-        steps:
-          - run: echo "::warning file=README.md,line=1,title=Heads up::This file needs attention"
+          SECRET="my-fake-secret-123"
+          echo "::add-mask::$SECRET"
+          echo "The secret is: $SECRET"   # logs show ***
 
-            
+      - name: Fail on purpose
+        run: |
+          echo "::error title=Fatal::Failing the step now"
+          exit 1
