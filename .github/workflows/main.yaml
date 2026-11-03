@@ -8,6 +8,8 @@ jobs:
   annotations:
     runs-on: ubuntu-latest
     steps:
+      - name: Who ran it
+        run: echo "${GITHUB_ACTOR}"
       - name: Emit annotations
         run: |
           echo "::notice title=FYI::Build started"
