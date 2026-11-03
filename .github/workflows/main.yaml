@@ -8,26 +8,7 @@ jobs:
   annotations:
     runs-on: ubuntu-latest
     steps:
-      - name: Who ran it
-        run: echo "${GITHUB_ACTOR}"
-      - name: Emit annotations
-        run: |
-          echo "::notice title=FYI::Build started"
-          echo "::warning title=Heads up::Something looks off"
-          echo "::error title=Problem::Something is broken"
-
-      - name: Collapsible group and masking
-        run: |
-          echo "::group::Click me to expand"
-          echo "Hidden line 1"
-          echo "Hidden line 2"
-          echo "::endgroup::"
-
-          SECRET="my-fake-secret-123"
-          echo "::add-mask::$SECRET"
-          echo "The secret is: $SECRET"   # logs show ***
-
-      - name: Fail on purpose
-        run: |
-          echo "::error title=Fatal::Failing the step now"
-          exit 1
+      - name: Printing the context
+        env: 
+            GITHUB_CONTEXT: ${{ toJson(github)}}
+        run: echo "$GITHUB_CONTEXT"
